@@ -110,9 +110,9 @@ public class ApplicationConfig
 	public DataSource getdataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:8889/desktopdrawer");
-		dataSource.setUsername("root");
-		dataSource.setPassword("root");
+		dataSource.setUrl("jdbc:mysql://thzz882efnak0xod.cbetxkdyhwsb.us-east-1.rds.amazonaws.com/u7lmhn76nmebd63p");
+		dataSource.setUsername("hvwc6dxwq4uyak3b");
+		dataSource.setPassword("cshg3puzuvm184ax");
 		
 		return dataSource;
 	}
