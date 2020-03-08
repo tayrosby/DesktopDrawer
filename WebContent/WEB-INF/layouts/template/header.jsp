@@ -3,7 +3,7 @@
 </div>
 
 <nav class="navbar fixed-top navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/Desktop_Drawer2/create/dashboard"><img class="logo" src="/Desktop_Drawer2/resources/images/logo.jpg" alt = "dd in a circle" height = "35" width = "35"></a>
+  <a class="navbar-brand" href="/Desktop_Drawer2/create/dashboard"><img class="logo" src="/resources/images/logo.jpg" alt = "dd in a circle" height = "35" width = "35"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
