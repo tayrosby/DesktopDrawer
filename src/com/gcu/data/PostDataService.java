@@ -33,7 +33,7 @@ public class PostDataService implements DataAccessInterface<Post> {
 	 */
 	@Override
 	public Post create(Post post) {
-		String sql = "INSERT INTO desktopdrawer.posts(TITLE, CONTENT, LIKE_COUNT, users_id) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO olagfzo6v1mxmlon.posts(TITLE, CONTENT, LIKE_COUNT, users_id) VALUES (?, ?, ?, ?)";
 
 		
 		try {
@@ -58,7 +58,7 @@ public class PostDataService implements DataAccessInterface<Post> {
 	 */
 	@Override
 	public List<Post> findAll() {
-		String sql = "SELECT * FROM desktopdrawer.posts";
+		String sql = "SELECT * FROM olagfzo6v1mxmlon.posts";
 		
 		//a empty list of posts
 		List<Post> posts = new ArrayList<Post>();
@@ -154,7 +154,7 @@ public class PostDataService implements DataAccessInterface<Post> {
 	*/
 	@Override
 	public Post delete(Post post) {
-		String sql = "DELETE FROM desktopdrawer.posts WHERE ID = ?";
+		String sql = "DELETE FROM olagfzo6v1mxmlon.posts WHERE ID = ?";
 		
 		try {
 
