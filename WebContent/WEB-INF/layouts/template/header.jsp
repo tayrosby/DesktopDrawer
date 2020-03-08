@@ -10,16 +10,16 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/Desktop_Drawer2/create/dashboard">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/create/dashboard">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Desktop_Drawer2/create/add">Add Post</a>
+        <a class="nav-link" href="/create/add">Add Post</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Desktop_Drawer2/login/loginUser">Login</a>
+        <a class="nav-link" href="/login/loginUser">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Desktop_Drawer2/register/goToRegister">Register</a>
+        <a class="nav-link" href="/register/goToRegister">Register</a>
       </li>
       
     </ul>
