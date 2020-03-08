@@ -110,7 +110,7 @@ public class ApplicationConfig
 	public DataSource getdataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://y2w3wxldca8enczv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com/olagfzo6v1mxmlon");
+		dataSource.setUrl("jdbc:mysql://y2w3wxldca8enczv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/olagfzo6v1mxmlon");
 		dataSource.setUsername("sl4y44zudm79o8qd");
 		dataSource.setPassword("wddvwco4bkir08z2");
 		 
