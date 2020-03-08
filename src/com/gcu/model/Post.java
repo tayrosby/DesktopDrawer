@@ -21,15 +21,15 @@ public class Post {
 	 */
 	private int ID;
 	
-	@NotNull(message="The tiile cannot be empty")
-	@Size(min=2, max=30, message="The First Name must be between 2 and 30 characters")
+	@NotNull(message="The title cannot be empty")
+	@Size(min=2, max=30, message="The Title must be between 2 and 30 characters")
 	/**
 	 * a string object to hold the title of the post
 	 */
 	private String title;
 	
 	@NotNull(message="The content cannot be empty")
-	@Size(min=2, max=30, message="The First Name must be between 2 and 30 characters")
+	@Size(min=2, max=30, message="The Content section must be between 2 and 30 characters")
 	/**
 	 * a string object to hold the content of the post
 	 */
