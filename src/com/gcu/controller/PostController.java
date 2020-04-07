@@ -8,6 +8,9 @@ package com.gcu.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ import com.gcu.model.Post;
 public class PostController {
 
 	PostBusinessInterface service;
+
+	Logger logger = LoggerFactory.getLogger(PostController.class);
 	
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	/**
@@ -35,6 +40,8 @@ public class PostController {
 	 */
 	public ModelAndView displayForm() 
 	{
+		logger.info("Entering PostController.displayForm");
+		logger.info("Exiting PostController.displayForm");
 		return new ModelAndView("addPost", "post", new Post());
 	}
 	
@@ -47,10 +54,12 @@ public class PostController {
 	 */
 	public ModelAndView addPost(@Valid @ModelAttribute("post")Post post, BindingResult result) 
 	{
+		logger.info("Entering PostController.addPost");
 		try {
 		//validate the model
 		if(result.hasErrors()) 
 		{
+			logger.info("Exiting PostController.addPost w fail");
 			return new ModelAndView("addPost", "post", post);
 		}
 		
@@ -58,11 +67,14 @@ public class PostController {
 		//calls orders business service
 		service.addPost(post);
 		
+		logger.info("Exiting PostController.addPost w pass");
+
 		//display a list of posts
 		return new ModelAndView("displayPosts", "posts", service.getListOfPosts());
 		
 		}
 		catch(Exception e) {
+			logger.error("PostController.addPost has failed with ", e);
 			//throw new DatabaseException("There is an error in the database");
 			return new ModelAndView("exception");
 		}
@@ -77,6 +89,7 @@ public class PostController {
 	@RequestMapping(path = "/deletePost", method = RequestMethod.POST)
 	public ModelAndView deletePost(@ModelAttribute("post")Post post) 
 	{
+		logger.info("Entering PostController.deletePost");
 		try {
 		//calls the business service
 		service.deletePost(post);
@@ -84,12 +97,15 @@ public class PostController {
 		//saves the contacts retrieved from the database to a list
 		List<Post> posts = service.getListOfPosts();
 		
+		logger.info("Exiting PostController.deletePost");
+
 		//returns the list with the displayContacts view
 		return new ModelAndView("displayPosts", "posts", posts);
 		
 
 		}
 		catch(Exception e) {
+			logger.error("PostController.deletePost has failed with ", e);
 			//throw new DatabaseException("There is an error in the database");
 			return new ModelAndView("exception");
 		}
@@ -103,6 +119,8 @@ public class PostController {
 	@RequestMapping(path = "/goToEditPost", method = RequestMethod.POST)
 	public ModelAndView goToEditForm(@ModelAttribute("post")Post post)
 	{	
+		logger.info("Entering PostController.goToEditForm");
+		logger.info("Exiting PostController.goToEditForm");
 		return new ModelAndView("editPost", "post", post);
 	}
 	
@@ -116,20 +134,26 @@ public class PostController {
 	@RequestMapping(path = "/editPost", method = RequestMethod.POST)
 	public ModelAndView editPost(@Valid @ModelAttribute("post")Post post, BindingResult result)
 	{
+		logger.info("Entering PostController.editPost");
 		try {
 		//validate the model
 		if(result.hasErrors()) 
 		{
+			logger.info("Exiting PostController.editPost");
 			return new ModelAndView("editPost", "post", post);
 		}
 		//call the editPost method from the business service and passed the edited post model
 		service.editPost(post);
 		//call the business services to get all posts and place them inside of an array list
 		List<Post> posts = service.getListOfPosts();
+
+		logger.info("Exiting PostController.editPost");
+
 		//return the model and view going to the display posts page with a filled array list of posts
 		return new ModelAndView("displayPosts", "posts", posts);
 		}
 		catch(Exception e) {
+			logger.error("PostController.editPost has failed with ", e);
 			//throw new DatabaseException("There is an error in the database");
 			return new ModelAndView("exception");
 		}
@@ -142,12 +166,15 @@ public class PostController {
 	 */
 	public ModelAndView displayAllPosts(@ModelAttribute("post")Post post) 
 	{
+		logger.info("Entering PostController.displayAllPosts");
 		try {
 	
 		List<Post> posts = service.getListOfPosts();
+		logger.info("Exiting PostController.displayAllPosts");
 		return new ModelAndView("main", "posts", posts);
 		}
 		catch(Exception e) {
+			logger.error("PostController.displayAllPosts has failed with ", e);
 			//throw new DatabaseException("There is an error in the database");
 			return new ModelAndView("exception");
 		}
