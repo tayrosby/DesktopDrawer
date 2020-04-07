@@ -7,6 +7,9 @@ package com.gcu.controller;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +27,8 @@ import com.gcu.model.User;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+
+	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	UserBusinessInterface service;
 	
@@ -43,6 +48,8 @@ public class LoginController {
 	@RequestMapping(path = "/loginUser", method = RequestMethod.GET)
 	public ModelAndView getUserCredentials()  
 	{
+		logger.info("Entering LoginController.getUserCredentials");
+		logger.info("Exiting LoginController.getUserCredentials");
 		return new ModelAndView("login", "credentials", new Credentials());
 	}
 	
@@ -55,18 +62,22 @@ public class LoginController {
 	@RequestMapping(path = "/displayLogin", method = RequestMethod.POST)
 	public ModelAndView loginUser(@Valid@ModelAttribute("credentials")Credentials credentials, BindingResult result) 
 	{
+		logger.info("Entering LoginController.loginUser");
 		try {
 		if(result.hasErrors() == true)
 		{
+			logger.info("Exiting LoginController.loginUser w fail");
 			return new ModelAndView("login", "credentials", credentials);
 		}else {
 			//login user to database, Data Service will return a model and view based on the result
 			ModelAndView mv = service.login(credentials);
-			System.out.println("Test");
+			//System.out.println("Test");
+			logger.info("Exiting LoginController.loginUser w pass");
 			return mv;
 		}
 		}
 		catch(Exception e) {
+			logger.error("LoginController.loginUser has failed with ", e);
 			//throw new DatabaseException("There is an error in the database");
 			return new ModelAndView("exception");
 		}
@@ -80,9 +91,11 @@ public class LoginController {
 	@RequestMapping(path="/dashboard", method=RequestMethod.GET)
 	public String printHello(ModelMap model) 
 	{
+		logger.info("Entering LoginController.printHello");
 		//return a model with an attribute named message
 		//return a View named hello passed in ModelMap
 		model.addAttribute("message", "Welcome to Desktop Drawer!");
+		logger.info("Exiting LoginController.printHello");
 		return "main";
 	}
 
