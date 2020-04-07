@@ -8,6 +8,9 @@ package com.gcu.business;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gcu.data.DataAccessInterface;
@@ -18,6 +21,8 @@ public class PostBusinessService implements PostBusinessInterface {
 	@SuppressWarnings("rawtypes")
 	@Autowired
 	DataAccessInterface<Post> dao;
+
+	Logger logger = LoggerFactory.getLogger(PostBusinessService.class);
 	
 	@Override
 	/**
@@ -25,7 +30,9 @@ public class PostBusinessService implements PostBusinessInterface {
 	 * @param post - the post that is being added
 	 */
 	public void addPost(Post post) {
+		logger.info("Entering PostBusinessService.addPost");
 		dao.create(post);
+		logger.info("Exiting PostBusinessService.addPost");
 	}
 
 
@@ -35,6 +42,8 @@ public class PostBusinessService implements PostBusinessInterface {
 	 * @return returns the posts in the list
 	 */
 	public List<Post> getListOfPosts() {
+		logger.info("Entering PostBusinessService.getListsOfPosts");
+		logger.info("Exiting PostBusinessService.getListsOfPosts");
 		return dao.findAll();
 	}
 
@@ -45,7 +54,9 @@ public class PostBusinessService implements PostBusinessInterface {
 	 */
 	@Override
 	public void deletePost(Post post) {
+		logger.info("Entering PostBusinessService.deletePost");
 		dao.delete(post);
+		logger.info("Exiting PostBusinessService.deletePost");
 	}
 
 	/**
@@ -54,7 +65,9 @@ public class PostBusinessService implements PostBusinessInterface {
 	 */
 	@Override
 	public void editPost(Post post) {
+		logger.info("Entering PostBusinessService.editPost");
 		dao.update(post);
+		logger.info("Exiting PostBusinessService.editPost");
 	}
 
 }
