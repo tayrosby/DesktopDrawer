@@ -6,6 +6,9 @@
 
 package com.gcu.data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +25,12 @@ public class PostDataService implements DataAccessInterface<Post> {
 	
 	@SuppressWarnings("unused")
 	/**
-	 * datasource connection to the databse
+	 * datasource connection to the database
 	 */
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplateObject;
+
+	Logger logger = LoggerFactory.getLogger(PostDataService.class);
 
 	/**
 	 * Takes the values from a post object and puts it into the database
@@ -33,6 +38,7 @@ public class PostDataService implements DataAccessInterface<Post> {
 	 */
 	@Override
 	public Post create(Post post) {
+		logger.info("Entering PostDataService.create");
 		String sql = "INSERT INTO olagfzo6v1mxmlon.posts(TITLE, CONTENT, LIKE_COUNT, users_id) VALUES (?, ?, ?, ?)";
 
 		
@@ -45,10 +51,11 @@ public class PostDataService implements DataAccessInterface<Post> {
 			}
 		
 		catch(Exception e) {
+			logger.error("PostDataService.create has failed with ", e);
 			e.printStackTrace();
 			throw new DatabaseException("There is an error in the database");
 		}
-		
+		logger.info("Exiting PostDataService.create");
 		return post;
 	}
 
@@ -58,6 +65,7 @@ public class PostDataService implements DataAccessInterface<Post> {
 	 */
 	@Override
 	public List<Post> findAll() {
+		logger.info("Entering PostDataService.findAll");
 		String sql = "SELECT * FROM olagfzo6v1mxmlon.posts";
 		
 		//a empty list of posts
@@ -77,10 +85,11 @@ public class PostDataService implements DataAccessInterface<Post> {
 		}
 		
 		catch(Exception e) {
+			logger.error("PostDataService.findAll has failed with ", e);
 			e.printStackTrace();
 			throw new DatabaseException("There is an error in the database");
 		}
-
+		logger.info("Exiting PostDataService.findAll");
 		//returns a list of posts
 		return posts;
 	}
@@ -92,6 +101,7 @@ public class PostDataService implements DataAccessInterface<Post> {
 	 */
 	@Override
 	public Post findBy(Post post) {
+		logger.info("Entering PostDataService.findBy");
 		//make a SQL statement as a string
 		String sql = "SELECT * FROM posts WHERE ID = ?";
 		//create an empty post model to be filled with the results of the query
@@ -110,10 +120,12 @@ public class PostDataService implements DataAccessInterface<Post> {
 	            result.setContent(srs.getString("CONTENT"));
 }
 		} catch(Exception e) {
+			logger.error("PostDataService.findBy has failed with ", e);
 			//currently printing stack trace, will be replaced by custom exception handling
 			e.printStackTrace();
 			throw new DatabaseException("There is an error in the database");
 		}
+		logger.info("Exiting PostDataService.findBy");
 		//return what was queried from the database
 		return result;
 	}
@@ -125,6 +137,7 @@ public class PostDataService implements DataAccessInterface<Post> {
 	 */
 	@Override
 	public Post update(Post post) {
+		logger.info("Entering PostDataService.update");
 		System.out.println(post.getID() + post.getTitle() + post.getContent());
 		//make a SQL statement as as string
 		String sql = "UPDATE posts SET TITLE = ?, CONTENT = ? WHERE ID = ?";
@@ -138,10 +151,12 @@ public class PostDataService implements DataAccessInterface<Post> {
 			results = jdbcTemplateObject.update(sql, post.getTitle(), post.getContent(), post.getID());
 
 		}catch(Exception e) {
+			logger.error("PostDataService.update has failed with ", e);
 			//currently printing stack trace, will be replaced by custom exception handling
 			e.printStackTrace();
 			throw new DatabaseException("There is an error in the database");
 		}
+		logger.info("Exiting PostDataService.update");
 		//return the amount of effected rows
 		//return results;
 		return post;
@@ -154,6 +169,8 @@ public class PostDataService implements DataAccessInterface<Post> {
 	*/
 	@Override
 	public Post delete(Post post) {
+		logger.info("Entering PostDataService.delete");
+
 		String sql = "DELETE FROM olagfzo6v1mxmlon.posts WHERE ID = ?";
 		
 		try {
@@ -164,10 +181,11 @@ public class PostDataService implements DataAccessInterface<Post> {
 		}
 
 		catch (Exception e) {
+			logger.error("PostDataService.delete has failed with ", e);
 			e.printStackTrace();
 			throw new DatabaseException("There is an error in the database");
 		}
-		
+		logger.info("Exiting PostDataService.delete");
 		//return results
 		return post;
 	}
