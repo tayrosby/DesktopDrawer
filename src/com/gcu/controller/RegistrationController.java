@@ -7,6 +7,9 @@ package com.gcu.controller;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +28,8 @@ import com.gcu.model.User;
 public class RegistrationController {
 
 	UserBusinessInterface service;
+
+	Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 	
 	/**
 	 * Injection of an implemented instance of the UserBusinessInterface
@@ -42,6 +47,8 @@ public class RegistrationController {
 	@RequestMapping(path="/goToRegister", method = RequestMethod.GET)
 	public ModelAndView goToRegister()
 	{
+		logger.info("Entering RegistrationController.goToRegister");
+		logger.info("Exiting RegistrationController.goToRegister");
 		return new ModelAndView("register", "user", new User());
 	}
 	
@@ -54,23 +61,28 @@ public class RegistrationController {
 	@RequestMapping(path="/registerUser", method = RequestMethod.POST)
 	public ModelAndView registerUser(@Valid@ModelAttribute("user")User user, BindingResult result)
 	{
+		logger.info("Entering RegistrationController.registerUser");
 		try {
 		if(result.hasErrors() == true) {
+			logger.info("Exiting RegistrationController.registerUser w fail");
 			return new ModelAndView("register", "user", user);
 		}else {
 			if(service.check(user) == true)
 			{
+				logger.info("Exiting RegistrationController.registerUser w fail");
 				return new ModelAndView("register", "user", user);
 			}else {
 			
 			//register user to database
 			service.register(user);
+			logger.info("Exiting RegistrationController.registerUser w pass");
 			return new ModelAndView("redirect:/login/loginUser");
 			//return new ModelAndView("displayRegister", "user", user);
 			}
 		}
 		}
 		catch(Exception e) {
+			logger.error("RegistrationController.registerUser has failed with ", e);
 			//throw new DatabaseException("There is an error in the database");
 			return new ModelAndView("exception");
 		}
@@ -84,9 +96,11 @@ public class RegistrationController {
 	@RequestMapping(path="/dashboard", method=RequestMethod.GET)
 	public String printHello(ModelMap model) 
 	{
+		logger.info("Entering RegistrationController.printHello");
 		//return a model with an attribute named message
 		//return a View named hello passed in ModelMap
 		model.addAttribute("message", "Welcome to Desktop Drawer!");
+		logger.info("Exiting RegistrationController.printHello");
 		return "main";
 	}
 }
