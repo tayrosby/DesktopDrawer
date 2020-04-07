@@ -5,6 +5,9 @@
 //11/10/2019
 package com.gcu.data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class UserDataService implements DataAccessInterface<User> {
 	
 	@SuppressWarnings("unused")
 	private JdbcTemplate jdbcTemplateObject;
+
+	Logger logger = LoggerFactory.getLogger(UserDataService.class);
 	
 	/**
 	 * dependency injection for datasource and jdbcTemplateObject
@@ -45,6 +50,8 @@ public class UserDataService implements DataAccessInterface<User> {
 	 */
 	@Override
 	public List<User> findAll() {
+		logger.info("Entering UserDataService.findAll");
+
 		//Create a sql statement
 		String sql = "SELECT * FROM users";
 		//Create an empty list to receive selected users
@@ -64,9 +71,13 @@ public class UserDataService implements DataAccessInterface<User> {
 									srs.getString("PHONENUMBER")));
 				}
 			} catch(Exception e) {
+				logger.error("UserDataService.findAll has failed with ", e);
+
 				e.printStackTrace();
 				throw new DatabaseException("There is an error in the database");
 			}
+		logger.info("Exiting UserDataService.findAll");
+
 		//return list of users
 		return users;
 	}
@@ -77,6 +88,7 @@ public class UserDataService implements DataAccessInterface<User> {
 	 */
 	@Override
 	public User create(User t) {
+		logger.info("Entering UserDataService.create");
 		//Create sql statement
 		String sql = "INSERT INTO users(FIRSTNAME, LASTNAME, EMAIL, PASSWORD, USERNAME, PHONENUMBER) VALUES (?,?,?,?,?,?)";
 		//try/catch to handle exceptions
@@ -92,9 +104,13 @@ public class UserDataService implements DataAccessInterface<User> {
 			
 			
 		} catch(Exception e) {
+			logger.error("UserDataService.create has failed with ", e);
+
 			e.printStackTrace();
 			throw new DatabaseException("There is an error in the database");
 		}
+		logger.info("Exiting UserDataService.create");
+
 		return t;
 	}
 
@@ -104,6 +120,8 @@ public class UserDataService implements DataAccessInterface<User> {
 	 */
 	@Override
 	public User findBy(User t) {
+		logger.info("Entering UserDataService.findBy");
+
 		//Make a string sql statement
 		String sql = "SELECT * FROM users WHERE EMAIL = ? AND PASSWORD = ?";
 		//create a user with the submitted information to be filled with data from the sql statement, 
@@ -123,9 +141,13 @@ public class UserDataService implements DataAccessInterface<User> {
 								srs.getString("PHONENUMBER"));
 			}
 		}catch(Exception e) {
+			logger.error("UserDataService.findBy has failed with ", e);
+
 			e.printStackTrace();
 			throw new DatabaseException("There is an error in the database");
 		}
+		logger.info("Exiting UserDataService.findBy");
+
 		//Return either a completely filled user object or a user object with just the credential information
 		return user;
 	}
@@ -154,6 +176,7 @@ public class UserDataService implements DataAccessInterface<User> {
 	 */
 	@Override
 	public int check(User t) {
+		logger.info("Entering UserDataService.check");
 		//Make a string sql statement
 				String sql = "SELECT * FROM users WHERE EMAIL = ?";
 				
@@ -168,9 +191,11 @@ public class UserDataService implements DataAccessInterface<User> {
 					}
 					
 				}catch(Exception e) {
+					logger.error("UserDataService.check has failed with ", e);
 					e.printStackTrace();
 					throw new DatabaseException("There is an error in the database");
 				}
+				logger.info("Exiting UserDataService.check");
 				//Return either a completely filled user object or a user object with just the credential information
 				return result;	
 	}
