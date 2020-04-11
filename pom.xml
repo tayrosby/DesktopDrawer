@@ -44,6 +44,15 @@
 		</executions>
 	</plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>src</directory>
+	<includes>
+	  <include>log4j.xml</include>
+	</includes>
+	<targetPath>${project.basedir}/target/classes</targetPath>
+	</resource>
+    </resources>
   </build>
 
   <!-- Dependencies -->
