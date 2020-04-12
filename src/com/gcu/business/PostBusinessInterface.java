@@ -36,4 +36,5 @@ public interface PostBusinessInterface {
 	 */
 	public void editPost(Post post);
 	
+	
 }
