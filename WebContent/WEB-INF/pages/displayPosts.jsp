@@ -32,12 +32,10 @@
 							</div>
 							<div>
 								<form:form method="POST" modelAttribute="post" action="deletePost">
-									<table>
-										<tr>
-											<td><form:input type="hidden" path="ID" value="${post.ID}" /></td>
-											<td colspan="2"><button>Delete</button></td>
-										</tr>
-									</table>
+									<div class="form-group">
+										<form:input type="hidden" path="ID" value="${post.ID}" />
+										<button class="delete">Delete</button>
+									</div>
 								</form:form>
 							</div>
 		
