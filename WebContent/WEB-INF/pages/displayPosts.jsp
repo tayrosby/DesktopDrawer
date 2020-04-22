@@ -5,39 +5,41 @@
 	<div class="form-container">
 
 <form>
-			<c:forEach var="post" items="${posts}">
-			<div class="postcontainer">
-					<input type="hidden" value="$post.id"></input>
-					<h1 class="title">${post.title}</h1><hr class="sep">
-					<h2 class="content">${post.content}</h2>
-							<div class="form-container">
-							<form:form method="POST" modelAttribute="post"
-								action="goToEditPost">
-								<div class="form-group">
-									<form:input class="col-xs-9" type="hidden" path="ID"
-										value="${post.ID}" />
-								</div>
-								<div class="form-group">
-									<form:input class="col-xs-9" type="hidden" path="title"
-										value="${post.title}" />
-								</div>
-								<div class="form-group">
-									<form:input class="col-xs-9" type="hidden" path="content"
-										value="${post.content}" />
-								</div>
-								<div class="form-group">
-									<button class="edit">Edit</button>
-								</div>
-							</form:form>
-							</div>
-								<form:form method="POST" modelAttribute="post" action="deletePost">
-									<div class="form-group">
-										<form:input type="hidden" path="ID" value="${post.ID}" />
-										<button class="delete">Delete</button>
-									</div>
-								</form:form>
+<c:forEach var="post" items="${posts}">
+<div class="postcontainer">
+		<input type="hidden" value="$post.id"></input>
+		<h1 class="title">${post.title}</h1><hr class="sep">
+		<h2 class="content">${post.content}</h2>
+				<div class="form-container">
+				<form:form method="POST" modelAttribute="post"
+					action="goToEditPost">
+					<div class="form-group">
+						<form:input class="col-xs-9" type="hidden" path="ID"
+							value="${post.ID}" />
+					</div>
+					<div class="form-group">
+						<form:input class="col-xs-9" type="hidden" path="title"
+							value="${post.title}" />
+					</div>
+					<div class="form-group">
+						<form:input class="col-xs-9" type="hidden" path="content"
+							value="${post.content}" />
+					</div>
+					<div class="form-group">
+						<button class="edit">Edit</button>
+					</div>
+				</form:form>
 				</div>
-			</c:forEach>
-			</form>
+				<div class="form-container">
+					<form:form method="POST" modelAttribute="post" action="deletePost">
+						<div class="form-group">
+							<form:input class="col-xs-9" type="hidden" path="ID" value="${post.ID}" />
+							<button class="delete">Delete</button>
+						</div>
+					</form:form>
+					
+	</div>
+</c:forEach>
+</form>
 			
 </div>
