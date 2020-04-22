@@ -1,39 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<script>
-	function openDialog() {
-		$(".dialog-confirm").dialog({
-			autoOpen : false,
-			show : {
-				effect : "blind",
-				duration : 1000
-			},
-			hide : {
-				effect : "explode",
-				duration : 1000
-			},
-			resizable : false,
-			height : "auto",
-			width : 400,
-			modal : true,
-			buttons : {
-				"Delete" : function() {
-					document.forms["DeletePost"].submit();
-				},
-				Cancel : function() {
-					$(this).dialog("close");
-				}
-			}
-		});
-		$(".opener").on("click", function() {
-			$(".dialog-confirm").dialog().dialog("open");
-		});
-	}
-	$(document).ready(openDialog);
-</script>
-
-
 	<h1 style="color:white; align:left;">List of Posts</h1>
 	<div class="form-container">
 
@@ -63,25 +30,17 @@
 								</div>
 							</form:form>
 							</div>
-								
-						<div class="dialog-confirm" title="Delete?">
-							<p>
-								<span class="ui-icon ui-icon-alert"
-									style="float: left; margin: 12px 12px 20px 0;"></span>This item
-								will be permanently deleted and cannot be recovered. Are you
-								sure?
-							</p>
-						</div>
+							<div>
+								<form:form method="POST" modelAttribute="post" action="deletePost">
+									<table>
+										<tr>
+											<td><form:input type="hidden" path="ID" value="${post.ID}" /></td>
+											<td colspan="2"><button>Delete</button></td>
+										</tr>
+									</table>
+								</form:form>
+							</div>
 		
-						<button class="opener">Delete</button> <form:form
-							name="DeletePost" method="POST" modelAttribute="post"
-							action="deletePost">
-							
-								<form:input class="delete-id" type="hidden" path="ID"
-										value="${post.ID}" />
-						
-						</form:form>
-			
 				</div>
 			</c:forEach>
 			</form>
