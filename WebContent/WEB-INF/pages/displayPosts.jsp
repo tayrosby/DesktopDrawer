@@ -37,7 +37,7 @@
 							<button class="delete">Delete</button>
 						</div>
 					</form:form>
-					
+					</div>
 	</div>
 </c:forEach>
 </form>
